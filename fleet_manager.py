@@ -118,5 +118,46 @@ class FleetManager:
         for status, count in summary.items():
             print(f"{status}: {count}")
 
+            def sort_vehicles_by_model(self, hub_name):
+        
+                if hub_name not in self.hubs:
+                    print(f"Hub '{hub_name}' does not exist.")
+                    return []
+
+                return sorted(
+                    self.hubs[hub_name],
+                    key=lambda v: v.model.lower()
+                )
+            
+        def sort_by_battery_level(self, hub_name):
+            """
+            Sort vehicles by battery level (highest first)
+                """
+        if hub_name not in self.hubs:
+            print(f"Hub '{hub_name}' does not exist.")
+            return []
+
+        return sorted(
+            self.hubs[hub_name],
+            key=lambda v: v.get_battery_percentage(),
+            reverse=True
+        )
+    
+        def sort_by_fare_price(self, hub_name):
+            """
+        Sort vehicles by fare price (highest first)
+        """
+        if hub_name not in self.hubs:
+            print(f"Hub '{hub_name}' does not exist.")
+            return []
+
+        return sorted(
+            self.hubs[hub_name],
+            key=lambda v: v.get_rental_price(),
+            reverse=True
+        )
+
+
+
 
             
