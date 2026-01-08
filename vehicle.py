@@ -1,20 +1,23 @@
-class Vehicle:
+from abc import ABC, abstractmethod
+
+
+class Vehicle(ABC):
     """
-    Represents a vehicle in the Eco-Ride fleet
+    Abstract base class for all vehicle types in Eco-Ride
     """
 
     def __init__(self, vehicle_id, model, battery_percentage):
         self.vehicle_id = vehicle_id
         self.model = model
 
-        # Private attributes (UC2)
+        # UC2: Encapsulation & Security
         self.__battery_percentage = None
         self.__maintenance_status = "Available"
         self.__rental_price = 0.0
 
         self.set_battery_percentage(battery_percentage)
 
-    # -------- Battery Percentage --------
+    # ---------- Battery Percentage ----------
     def get_battery_percentage(self):
         return self.__battery_percentage
 
@@ -24,14 +27,14 @@ class Vehicle:
         else:
             raise ValueError("Battery percentage must be between 0 and 100")
 
-    # -------- Maintenance Status --------
+    # ---------- Maintenance Status ----------
     def get_maintenance_status(self):
         return self.__maintenance_status
 
     def set_maintenance_status(self, status):
         self.__maintenance_status = status
 
-    # -------- Rental Price --------
+    # ---------- Rental Price ----------
     def get_rental_price(self):
         return self.__rental_price
 
@@ -40,4 +43,25 @@ class Vehicle:
             self.__rental_price = price
         else:
             raise ValueError("Rental price cannot be negative")
+
+    # ---------- UC4: Abstraction ----------
+    @abstractmethod
+    def calculate_trip_cost(self, value):
+        """
+        Calculate trip cost based on distance or time.
+        Must be implemented by all subclasses.
+        """
+        pass
+
+        def __eq__(self, other):
+            if isinstance(other, Vehicle):
+                return self.vehicle_id == other.vehicle_id
+        return False
+        def __str__(self):
+            return (
+                f"ID: {self.vehicle_id}, "
+                f"Model: {self.model}, "
+                f"Battery: {self.get_battery_percentage()}%, "
+                f"Status: {self.get_maintenance_status()}"
+            )
 
