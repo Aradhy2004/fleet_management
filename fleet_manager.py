@@ -78,3 +78,24 @@ class FleetManager:
                 )
     
             )
+        
+        from specialized_vehicle import ElectricCar, ElectricScooter
+
+        def categorize_by_type(self):
+            """
+            group vehicles by their type (car / Scooter)
+
+            """
+            categorized = {
+                "car": [],
+                "Scooter": []
+            }
+
+            for vehicles in self.hubs.values():
+                for vehicle in vehicles:
+                    if isinstance(vehicle,ElectricCar):
+                        categorized["Car"].append(vehicle)
+                    elif isinstance(vehicle,ElectricScooter):
+                        categorized["Scooter"].append(vehicle)
+                return categorized
+            
