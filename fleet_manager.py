@@ -99,3 +99,24 @@ class FleetManager:
                         categorized["Scooter"].append(vehicle)
                 return categorized
             
+
+        def fleet_status_summary(self):
+            summary = {
+                "Available": 0,
+                "On Trip": 0,
+                "Under Maintenance": 0
+        }
+
+        for vehicles in self.hubs.values():
+            for vehicle in vehicles:
+                status = vehicle.get_maintenance_status()
+                if status in summary:
+                    summary[status] += 1
+
+        print("\nFleet Status Summary")
+        print("---------------------")
+        for status, count in summary.items():
+            print(f"{status}: {count}")
+
+
+            
